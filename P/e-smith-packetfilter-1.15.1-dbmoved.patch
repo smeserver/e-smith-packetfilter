@@ -1,0 +1,13 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.15.1/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90local_chk50networks mezzanine_patched_e-smith-packetfilter-1.15.1/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90local_chk50networks
+--- e-smith-packetfilter-1.15.1/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90local_chk50networks	2004-02-25 15:16:42.000000000 -0700
++++ mezzanine_patched_e-smith-packetfilter-1.15.1/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90local_chk50networks	2005-07-17 19:39:55.859275368 -0600
+@@ -3,8 +3,7 @@
+     my $locals = "@locals";
+     if (@locals)
+     {
+-        # Make a new local_chk chain and add any networks found in
+-        # /home/e-smith/networks.
++        # Make a new local_chk chain and add any networks found in networks db
+         foreach my $local (@locals)
+         {
+             # If the network is a remote vpn subnet, restrict it to the ipsec0
