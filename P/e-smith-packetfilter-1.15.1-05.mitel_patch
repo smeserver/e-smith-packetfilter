@@ -1,0 +1,14 @@
+Index: e-smith-packetfilter/e-smith-packetfilter.spec
+diff -u e-smith-packetfilter/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90local_chk50networks:1.3 e-smith-packetfilter/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90local_chk50networks:1.4
+--- e-smith-packetfilter/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90local_chk50networks:1.3	Wed Feb 25 17:16:42 2004
++++ e-smith-packetfilter/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90local_chk50networks	Mon Jul 18 17:22:01 2005
+@@ -3,8 +3,7 @@
+     my $locals = "@locals";
+     if (@locals)
+     {
+-        # Make a new local_chk chain and add any networks found in
+-        # /home/e-smith/networks.
++        # Make a new local_chk chain and add any networks found in networks db
+         foreach my $local (@locals)
+         {
+             # If the network is a remote vpn subnet, restrict it to the ipsec0

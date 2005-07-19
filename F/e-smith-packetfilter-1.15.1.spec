@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.15.1
-%define release 04sme01
+%define release 05
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -11,7 +11,7 @@ Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-packetfilter-1.15.1-02.mitel_patch
 Patch1: e-smith-packetfilter-1.15.1-04.mitel_patch
-Patch2: e-smith-packetfilter-1.15.1-dbmoved.patch
+Patch2: e-smith-packetfilter-1.15.1-05.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -26,9 +26,9 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
-* Sun Jul 17 2005 Shad L. Lords <slords@mail.com>
-- [1.15.1-04sme01]
-- Cleanup for db moves
+* Mon Jul 18 2005 Charlie Brady <charlieb@e-smith.com>
+- [1.15.1-05]
+- Tidy up path reference to networks db. [SF: 1216546]
 
 * Tue Jun  7 2005 Charlie Brady <charlieb@e-smith.com>
 - [1.15.1-04]
@@ -706,6 +706,7 @@ e-smith server and gateway software - packetfilter add-on
 %setup
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 perl createlinks
