@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.15.1
-%define release 05
+%define release 05sme01
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -12,6 +12,7 @@ Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-packetfilter-1.15.1-02.mitel_patch
 Patch1: e-smith-packetfilter-1.15.1-04.mitel_patch
 Patch2: e-smith-packetfilter-1.15.1-05.mitel_patch
+Patch100: e-smith-packetfilter-1.15.1.DenyHosts.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -26,6 +27,11 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Wed Jul 20 2005 Gordon Rowell <gordonr@gormand.com.au>
+- [1.15.1-05sme01]
+- Add support for DenyHosts property (see 1.15.0-02 for AllowHosts)
+  [SF: 1241398]
+
 * Mon Jul 18 2005 Charlie Brady <charlieb@e-smith.com>
 - [1.15.1-05]
 - Tidy up path reference to networks db. [SF: 1216546]
@@ -707,6 +713,7 @@ e-smith server and gateway software - packetfilter add-on
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch100 -p1
 
 %build
 perl createlinks
