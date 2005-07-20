@@ -27,3 +27,8 @@ Wed Jul 20 16:41:54 2005                       Gordon Rowell (gordonr)
 Actually put back UDP filter patch
 
 ----------------------------------------------------------------------
+Wed Jul 20 16:43:44 2005                       Gordon Rowell (gordonr)
+
+Reject IDENT
+
+----------------------------------------------------------------------
