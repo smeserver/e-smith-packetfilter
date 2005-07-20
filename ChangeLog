@@ -17,3 +17,8 @@ Wed Jul 20 18:00:48 2005                                       gordonr
 Added DenyHosts support
 
 ----------------------------------------------------------------------
+Wed Jul 20 18:07:07 2005                                       gordonr
+
+Added UDPPort filtering, c.f. TCPPort filtering
+
+----------------------------------------------------------------------
