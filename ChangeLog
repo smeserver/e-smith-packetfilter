@@ -22,3 +22,8 @@ Wed Jul 20 18:07:07 2005                                       gordonr
 Added UDPPort filtering, c.f. TCPPort filtering
 
 ----------------------------------------------------------------------
+Wed Jul 20 16:41:54 2005                       Gordon Rowell (gordonr)
+
+Actually put back UDP filter patch
+
+----------------------------------------------------------------------
