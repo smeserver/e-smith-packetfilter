@@ -12,8 +12,8 @@ Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-packetfilter-1.15.1-02.mitel_patch
 Patch1: e-smith-packetfilter-1.15.1-04.mitel_patch
 Patch2: e-smith-packetfilter-1.15.1-05.mitel_patch
-Patch100: e-smith-packetfilter-1.15.1.DenyHosts.patch
-Patch101: e-smith-packetfilter-1.15.1.UDPFilter.patch
+Patch100: e-smith-packetfilter-1.15.1-DenyHosts.patch
+Patch101: e-smith-packetfilter-1.15.1-UDPFilter.patch
 Patch102: e-smith-packetfilter-1.15.1-RejectIDENT.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
