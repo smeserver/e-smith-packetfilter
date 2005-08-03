@@ -1,5 +1,0 @@
-diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.15.1/root/etc/e-smith/db/configuration/defaults/masq/Stealth mezzanine_patched_e-smith-packetfilter-1.15.1/root/etc/e-smith/db/configuration/defaults/masq/Stealth
---- e-smith-packetfilter-1.15.1/root/etc/e-smith/db/configuration/defaults/masq/Stealth	1969-12-31 17:00:00.000000000 -0700
-+++ mezzanine_patched_e-smith-packetfilter-1.15.1/root/etc/e-smith/db/configuration/defaults/masq/Stealth	2005-07-20 18:20:01.632243544 -0600
-@@ -0,0 +1 @@
-+no

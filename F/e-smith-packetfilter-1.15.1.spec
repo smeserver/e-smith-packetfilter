@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.15.1
-%define release 05sme04
+%define release 07
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -12,10 +12,8 @@ Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-packetfilter-1.15.1-02.mitel_patch
 Patch1: e-smith-packetfilter-1.15.1-04.mitel_patch
 Patch2: e-smith-packetfilter-1.15.1-05.mitel_patch
-Patch100: e-smith-packetfilter-1.15.1-DenyHosts.patch
-Patch101: e-smith-packetfilter-1.15.1-UDPFilter.patch
-Patch102: e-smith-packetfilter-1.15.1-RejectIDENT.patch
-Patch103: e-smith-packetfilter-1.15.1-stealthdb.patch
+Patch3: e-smith-packetfilter-1.15.1-06.mitel_patch
+Patch4: e-smith-packetfilter-1.15.1-07.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -30,21 +28,15 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
-* Wed Jul 21 2005 Shad L. Lords <slords@mail.com>
-- [1.15.1-05sme04]
-- Add stealth db entry
+* Tue Aug  2 2005 Shad Lords <slords@email.com>
+- [1.15.1-07]
+- Add default $masq{Stealth} db entry
 
-* Wed Jul 21 2005 Gordon Rowell <gordonr@gormand.com.au>
-- [1.15.1-05sme03]
+* Tue Aug  2 2005 Gordon Rowell <gordonr@gormand.com.au>
+- [1.15.1-06]
 - Rejct IDENT with a TCP reset [SF: 1240659]
-
-* Wed Jul 20 2005 Gordon Rowell <gordonr@gormand.com.au>
-- [1.15.1-05sme02]
-- Add support for UDPPort (c.f. TCPPort) property to allow 
+- Add support for UDPPort (c.f. TCPPort) property to allow
   filtered UDP [SF: 1241398]
-
-* Wed Jul 20 2005 Gordon Rowell <gordonr@gormand.com.au>
-- [1.15.1-05sme01]
 - Add support for DenyHosts property (see 1.15.0-02 for AllowHosts)
   [SF: 1241398]
 
@@ -729,10 +721,8 @@ e-smith server and gateway software - packetfilter add-on
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch100 -p1
-%patch101 -p1
-%patch102 -p1
-%patch103 -p1
+%patch3 -p1
+%patch4 -p1
 
 %build
 perl createlinks
