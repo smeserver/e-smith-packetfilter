@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.15.1
-%define release 07
+%define release 08
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -14,6 +14,7 @@ Patch1: e-smith-packetfilter-1.15.1-04.mitel_patch
 Patch2: e-smith-packetfilter-1.15.1-05.mitel_patch
 Patch3: e-smith-packetfilter-1.15.1-06.mitel_patch
 Patch4: e-smith-packetfilter-1.15.1-07.mitel_patch
+Patch5: e-smith-packetfilter-1.15.1-08.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -28,6 +29,11 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Fri Aug 26 2005 Charlie Brady <charlieb@e-smith.com>
+- [1.15.1-08]
+- Remove filtering of outbound ICMP - it's blocking legitimate ICMP
+  redirects. [MN00093544]
+
 * Tue Aug  2 2005 Shad Lords <slords@email.com>
 - [1.15.1-07]
 - Add default $masq{Stealth} db entry
@@ -723,6 +729,7 @@ e-smith server and gateway software - packetfilter add-on
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 perl createlinks
