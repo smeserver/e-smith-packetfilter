@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.15.1
-%define release 08
+%define release 09
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -15,6 +15,7 @@ Patch2: e-smith-packetfilter-1.15.1-05.mitel_patch
 Patch3: e-smith-packetfilter-1.15.1-06.mitel_patch
 Patch4: e-smith-packetfilter-1.15.1-07.mitel_patch
 Patch5: e-smith-packetfilter-1.15.1-08.mitel_patch
+Patch6: e-smith-packetfilter-1.15.1-09.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -29,6 +30,13 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Tue Aug 30 2005 Charlie Brady <charlieb@e-smith.com>
+- [1.15.1-09]
+- Add force/status fragment for masq service, to force enabled.
+  This ensures that firewall is running after a system upgrade,
+  to avoid various panel failure modes. Solution to be reviewed
+  for alternatives later. [SF: 1261356]
+
 * Fri Aug 26 2005 Charlie Brady <charlieb@e-smith.com>
 - [1.15.1-08]
 - Remove filtering of outbound ICMP - it's blocking legitimate ICMP
@@ -730,6 +738,7 @@ e-smith server and gateway software - packetfilter add-on
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 perl createlinks
