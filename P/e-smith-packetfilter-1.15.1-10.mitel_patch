@@ -1,0 +1,12 @@
+Index: e-smith-packetfilter/e-smith-packetfilter.spec
+diff -u e-smith-packetfilter/root/etc/e-smith/db/configuration/force/status:1.1 e-smith-packetfilter/root/etc/e-smith/db/configuration/force/status:removed
+--- e-smith-packetfilter/root/etc/e-smith/db/configuration/force/status:1.1	Tue Aug 30 12:34:29 2005
++++ e-smith-packetfilter/root/etc/e-smith/db/configuration/force/status	Wed Dec 31 19:00:00 1969
+@@ -1 +0,0 @@
+-enabled
+Index: e-smith-packetfilter/root/etc/e-smith/db/configuration/force/masq/status
+diff -u /dev/null e-smith-packetfilter/root/etc/e-smith/db/configuration/force/masq/status:1.1
+--- /dev/null	Wed Sep  7 18:06:57 2005
++++ e-smith-packetfilter/root/etc/e-smith/db/configuration/force/masq/status	Wed Sep  7 18:06:29 2005
+@@ -0,0 +1 @@
++enabled
