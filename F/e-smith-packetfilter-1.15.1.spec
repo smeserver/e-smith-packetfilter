@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.15.1
-%define release 10
+%define release 12
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -17,6 +17,7 @@ Patch4: e-smith-packetfilter-1.15.1-07.mitel_patch
 Patch5: e-smith-packetfilter-1.15.1-08.mitel_patch
 Patch6: e-smith-packetfilter-1.15.1-09.mitel_patch
 Patch7: e-smith-packetfilter-1.15.1-10.mitel_patch
+Patch8: e-smith-packetfilter-1.15.1-11.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -31,6 +32,16 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Wed Nov 30 2005 Gordon Rowell <gordonr@gormand.com.au> 1.15.1-12
+- Bump release number only
+
+* Wed Sep 21 2005 Charlie Brady <charlieb@e-smith.com>
+- [1.15.1-11]
+- Remove force/masq/status fragment, and fix "masq adjust" so
+  that it is harmless if firewall is disabled. This leaves unsolved
+  the problem of whether to toggle disabled->enabled during upgrades.
+  [SF: 1261356]
+
 * Wed Sep  7 2005 Charlie Brady <charlieb@e-smith.com>
 - [1.15.1-10]
 - Fix location of force/status fragment for masq service. [SF: 1261356]
@@ -745,6 +756,7 @@ e-smith server and gateway software - packetfilter add-on
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 %build
 perl createlinks
