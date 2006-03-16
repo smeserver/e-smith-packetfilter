@@ -1,23 +1,14 @@
 Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
-%define version 1.15.1
-%define release 12
+%define version 1.16.0
+%define release 01
 Version: %{version}
 Release: %{release}
 License: GPL
 Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
-Patch0: e-smith-packetfilter-1.15.1-02.mitel_patch
-Patch1: e-smith-packetfilter-1.15.1-04.mitel_patch
-Patch2: e-smith-packetfilter-1.15.1-05.mitel_patch
-Patch3: e-smith-packetfilter-1.15.1-06.mitel_patch
-Patch4: e-smith-packetfilter-1.15.1-07.mitel_patch
-Patch5: e-smith-packetfilter-1.15.1-08.mitel_patch
-Patch6: e-smith-packetfilter-1.15.1-09.mitel_patch
-Patch7: e-smith-packetfilter-1.15.1-10.mitel_patch
-Patch8: e-smith-packetfilter-1.15.1-11.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -32,6 +23,9 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Wed Mar 15 2006 Charlie Brady <charlie_brady@mitel.com> 1.2.0-01
+- Roll stable stream version. [SME: 1016]
+
 * Wed Nov 30 2005 Gordon Rowell <gordonr@gormand.com.au> 1.15.1-12
 - Bump release number only
 
@@ -748,15 +742,6 @@ e-smith server and gateway software - packetfilter add-on
 
 %prep
 %setup
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
 
 %build
 perl createlinks
