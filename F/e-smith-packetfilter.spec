@@ -2,13 +2,14 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.16.0
-%define release 01
+%define release 02
 Version: %{version}
 Release: %{release}
 License: GPL
 Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
+Patch0: e-smith-packetfilter-1.16.0-modifyRejectIDENT.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -23,6 +24,10 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Thu Apr 6 2006 Gavin Weight <gweight@gmail.com> 1.2.0-02
+- Make ident TCP reject configurable, based on oidentd status.
+  If oidentd{status} is enabled, allow ident, otherwise REJECT it [SME: 85]
+
 * Wed Mar 15 2006 Charlie Brady <charlie_brady@mitel.com> 1.2.0-01
 - Roll stable stream version. [SME: 1016]
 
@@ -742,6 +747,7 @@ e-smith server and gateway software - packetfilter add-on
 
 %prep
 %setup
+%patch0 -p1
 
 %build
 perl createlinks

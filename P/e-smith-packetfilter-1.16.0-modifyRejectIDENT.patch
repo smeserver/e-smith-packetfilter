@@ -1,0 +1,20 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundTCP05RejectIDENT mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundTCP05RejectIDENT
+--- e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundTCP05RejectIDENT	2006-03-16 13:38:35.000000000 +1100
++++ mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundTCP05RejectIDENT	2006-04-07 08:16:05.245589679 +1000
+@@ -1,6 +1,14 @@
++{
++    return "" if $oidentd{status} eq "enabled";
+ 
+-    /sbin/iptables -A $NEW_InboundTCP --proto tcp --dport 113 \
+-        --destination $OUTERNET \
++    return <<'END_REJECT_IDENT';
++
++     /sbin/iptables -A $NEW_InboundTCP --proto tcp --dport 113 \
++	 --destination $OUTERNET \
+ 	--jump REJECT \
+ 	--reject-with tcp-reset
+ 
++END_REJECT_IDENT
++}
++
++
