@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.16.0
-%define release 02
+%define release 03
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -10,6 +10,7 @@ Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-packetfilter-1.16.0-modifyRejectIDENT.patch
+Patch1: e-smith-packetfilter-1.16.0-ServerOnlyUdpFix.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -24,6 +25,9 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Tue Jun 20 2006 Filippo Carletti <carletti@mobilia.it> 1.16.0-03
+- No longer drop UDP packets in serveronly mode [SME: 1002]
+
 * Thu Apr 6 2006 Gavin Weight <gweight@gmail.com> 1.2.0-02
 - Make ident TCP reject configurable, based on oidentd status.
   If oidentd{status} is enabled, allow ident, otherwise REJECT it [SME: 85]
@@ -748,6 +752,7 @@ e-smith server and gateway software - packetfilter add-on
 %prep
 %setup
 %patch0 -p1
+%patch1 -p1
 
 %build
 perl createlinks

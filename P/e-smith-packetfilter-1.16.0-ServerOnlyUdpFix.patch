@@ -1,0 +1,98 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/00Definitions mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/00Definitions
+--- e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/00Definitions	2005-03-31 07:25:24.000000000 +1000
++++ mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/00Definitions	2006-06-20 23:12:35.703850592 +1000
+@@ -1,13 +1,16 @@
+ {
+     my $internalif = $InternalInterface{Name};
+-    my $outerif = $ExternalInterface{Name} || 'there_isnt_one';
+     my $outernet = ($SystemMode eq "serveronly") ?
+ 			$LocalIP : '$(/sbin/e-smith/config get ExternalIP)';
+ 
+     $OUT .= <<HERE;
+ 
+     INTERNALIF=$internalif
+-    OUTERIF=$outerif
+     OUTERNET=$outernet
+ HERE
++
++    if (defined $ExternalInterface{Name})
++        { $OUT .= "    OUTERIF=".$ExternalInterface{Name} }
++    else
++        { $OUT .= "#    OUTERIF='there_isnt_one'"; }
+ }
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/00Functions mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/00Functions
+--- e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/00Functions	2003-03-26 06:38:47.000000000 +1100
++++ mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/00Functions	2006-06-20 23:12:35.703850592 +1000
+@@ -63,7 +63,7 @@
+     if [ -n "$dnet" ]; then
+         rule="$rule --destination $dnet"
+     fi
+-    rule="$rule --in-interface $OUTERIF --jump $target"
++    rule="$rule --in-interface $\{OUTERIF:-$INTERNALIF\} --jump $target"
+     $rule
+     \}
+ 
+@@ -77,7 +77,7 @@
+     if [ -n "$dnet" ]; then
+         rule="$rule --destination $dnet"
+     fi
+-    rule="$rule --in-interface $OUTERIF --jump $target"
++    rule="$rule --in-interface $\{OUTERIF:-$INTERNALIF\} --jump $target"
+     $rule
+     \}
+ 
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/40AllowLocal mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/40AllowLocal
+--- e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/40AllowLocal	2003-01-24 11:36:17.000000000 +1100
++++ mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/40AllowLocal	2006-06-20 23:12:35.703850592 +1000
+@@ -4,8 +4,10 @@
+     /sbin/iptables --new-chain local_chk_1
+ 
+     # Accept any traffic initiated on "local" interfaces
+-    /sbin/iptables --append local_chk_1 \
+-	--in-interface ! $OUTERIF -j ACCEPT
++    if [ -n "$OUTERIF" ]; then
++        /sbin/iptables --append local_chk_1 \
++	    --in-interface ! $OUTERIF -j ACCEPT
++    fi
+     /sbin/iptables --append local_chk -j local_chk_1
+ 
+     # We filter all input and forwarded traffic this way
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/41AllowDHCPC mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/41AllowDHCPC
+--- e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/41AllowDHCPC	2003-01-24 11:36:17.000000000 +1100
++++ mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/41AllowDHCPC	2006-06-20 23:12:35.704850427 +1000
+@@ -4,7 +4,7 @@
+     # could be covered by connection tracking.
+     {
+         $OUT .= <<'HERE';
+-    /sbin/iptables --append INPUT -p udp --dport 67:68 -i $OUTERIF -j ACCEPT
++    /sbin/iptables --append INPUT -p udp --dport 67:68 -i ${OUTERIF:-$INTERNALIF} -j ACCEPT
+ HERE
+     }
+ }
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/42CheckUDPInput mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/42CheckUDPInput
+--- e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/42CheckUDPInput	2002-11-12 12:57:52.000000000 +1100
++++ mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/42CheckUDPInput	2006-06-20 23:12:35.704850427 +1000
+@@ -1,9 +1,9 @@
+     /sbin/iptables --new-chain InboundUDP
+     /sbin/iptables --new-chain InboundUDP_1
+-    /sbin/iptables --append INPUT --protocol udp --in-interface $OUTERIF \
++    /sbin/iptables --append INPUT --protocol udp --in-interface $\{OUTERIF:-$INTERNALIF\} \
+        --jump InboundUDP
+     /sbin/iptables --append InboundUDP --protocol udp --jump InboundUDP_1
+     # Catch any returns, just in case
+-    /sbin/iptables --append INPUT --protocol udp --in-interface $OUTERIF \
++    /sbin/iptables --append INPUT --protocol udp --in-interface $\{OUTERIF:-$INTERNALIF\} \
+        --jump denylog
+     /sbin/iptables --append InboundUDP --protocol udp --jump denylog
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90adjustICMPIn mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90adjustICMPIn
+--- e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90adjustICMPIn	2003-10-05 13:05:52.000000000 +1000
++++ mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90adjustICMPIn	2006-06-20 23:12:35.704850427 +1000
+@@ -8,7 +8,7 @@
+     {
+ 	$OUT .= <<HERE;
+     /sbin/iptables --append \$new --proto icmp \\
+-	--icmp-type echo-request --in-interface \$OUTERIF --jump denylog
++	--icmp-type echo-request --in-interface \${OUTERIF:-\$INTERNALIF} --jump denylog
+ HERE
+     }
+     # We want to be very selective on the ICMPs we accept to stop
