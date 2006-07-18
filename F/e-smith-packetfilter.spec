@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.16.0
-%define release 03
+%define release 04
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -11,6 +11,7 @@ Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-packetfilter-1.16.0-modifyRejectIDENT.patch
 Patch1: e-smith-packetfilter-1.16.0-ServerOnlyUdpFix.patch
+Patch2: e-smith-packetfilter-1.16.0-ipmasq.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -19,12 +20,16 @@ Requires: ulogd
 Requires: daemontools
 Requires: iptables
 BuildRequires: e-smith-devtools
+Obsoletes: e-smith-ipmasq
 AutoReqProv: no
 
 %description
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Tue Jul 18 2006 Charlie Brady <charlie_brady@mitel.com> 1.16.0-04
+- Bundle fragments from e-smith-ipmasq and obsolete that RPM. [SME: 1002]
+
 * Tue Jun 20 2006 Filippo Carletti <carletti@mobilia.it> 1.16.0-03
 - No longer drop UDP packets in serveronly mode [SME: 1002]
 
@@ -753,6 +758,7 @@ e-smith server and gateway software - packetfilter add-on
 %setup
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 perl createlinks
