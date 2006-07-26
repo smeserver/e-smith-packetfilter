@@ -1,6 +1,0 @@
-Index: e-smith-packetfilter/e-smith-packetfilter.spec
-diff -u /dev/null e-smith-packetfilter/root/etc/e-smith/db/configuration/force/status:1.1
---- /dev/null	Tue Aug 30 12:34:57 2005
-+++ e-smith-packetfilter/root/etc/e-smith/db/configuration/force/status	Tue Aug 30 12:34:29 2005
-@@ -0,0 +1 @@
-+enabled
