@@ -1,18 +1,14 @@
 Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
-%define version 1.16.0
-%define release 05
+%define version 1.17.0
+%define release 01
 Version: %{version}
 Release: %{release}
 License: GPL
 Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
-Patch0: e-smith-packetfilter-1.16.0-modifyRejectIDENT.patch
-Patch1: e-smith-packetfilter-1.16.0-ServerOnlyUdpFix.patch
-Patch2: e-smith-packetfilter-1.16.0-ipmasq.patch
-Patch3: e-smith-packetfilter-1.16.0-DefaultDeny.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -28,6 +24,9 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Sun Aug 13 2006 Charlie Brady <charlie_brady@mitel.com> 1.17.0-01
+- Roll new development stream.
+
 * Wed Jul 26 2006 Gordon Rowell <gordonr@gormand.com.au> 1.16.0-05
 - Remove redundant auto-generated service-specific denylog rules from 
   90InboundTCP10filter_{tcp,udp} [SME: 1776]
@@ -761,10 +760,6 @@ e-smith server and gateway software - packetfilter add-on
 
 %prep
 %setup
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %build
 perl createlinks
