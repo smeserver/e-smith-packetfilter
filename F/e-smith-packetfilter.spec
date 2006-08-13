@@ -2,13 +2,14 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.17.0
-%define release 01
+%define release 02
 Version: %{version}
 Release: %{release}
 License: GPL
 Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
+Patch0: e-smith-packetfilter-1.17.0-merge.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -24,6 +25,9 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Sun Aug 13 2006 Charlie Brady <charlie_brady@mitel.com> 1.17.0-02
+- Merge in masq fragments from e-smith-base.
+
 * Sun Aug 13 2006 Charlie Brady <charlie_brady@mitel.com> 1.17.0-01
 - Roll new development stream.
 
@@ -760,6 +764,7 @@ e-smith server and gateway software - packetfilter add-on
 
 %prep
 %setup
+%patch0 -p1
 
 %build
 perl createlinks
