@@ -1,0 +1,14 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/00Definitions mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/00Definitions
+--- e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/00Definitions	2006-10-18 19:44:03.000000000 -0400
++++ mezzanine_patched_e-smith-packetfilter-1.16.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/00Definitions	2006-10-18 19:43:31.000000000 -0400
+@@ -7,6 +7,10 @@
+ 
+     INTERNALIF=$internalif
+     OUTERNET=$outernet
++    if [ -z "\$OUTERNET" ]
++    then
++        OUTERNET=1.1.1.1 # Put in placeholder address, to ensure correct iptables syntax
++    fi
+ HERE
+ 
+     if (defined $ExternalInterface{Name})
