@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.16.0
-%define release 05
+%define release 07
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -13,6 +13,8 @@ Patch0: e-smith-packetfilter-1.16.0-modifyRejectIDENT.patch
 Patch1: e-smith-packetfilter-1.16.0-ServerOnlyUdpFix.patch
 Patch2: e-smith-packetfilter-1.16.0-ipmasq.patch
 Patch3: e-smith-packetfilter-1.16.0-DefaultDeny.patch
+Patch4: e-smith-packetfilter-1.16.0-OUTERNET.patch
+Patch5: e-smith-packetfilter-1.17.0-TCPMinimizeDelay.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
@@ -28,6 +30,14 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Fri Nov 23 2006 Gordon Rowell <gordonr@gormand.com.au> 1.6.0-07
+- Back port of 1.17.0-04
+- Remove TCPMinimizeDelay default for ssh [SME: 2083]
+
+* Wed Oct 18 2006 Charlie Brady <charlie_brady@mitel.com> 1.16.0-06
+- Ensure that OUTERNET is defined, even if value might be bogus in
+  serveronly mode. [SME: 1815]
+
 * Wed Jul 26 2006 Gordon Rowell <gordonr@gormand.com.au> 1.16.0-05
 - Remove redundant auto-generated service-specific denylog rules from 
   90InboundTCP10filter_{tcp,udp} [SME: 1776]
@@ -765,6 +775,8 @@ e-smith server and gateway software - packetfilter add-on
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 perl createlinks
