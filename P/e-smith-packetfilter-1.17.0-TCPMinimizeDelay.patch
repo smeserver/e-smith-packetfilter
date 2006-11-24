@@ -1,0 +1,5 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.17.0/root/etc/e-smith/db/configuration/defaults/masq/TCPMinimizeDelay mezzanine_patched_e-smith-packetfilter-1.17.0/root/etc/e-smith/db/configuration/defaults/masq/TCPMinimizeDelay
+--- e-smith-packetfilter-1.17.0/root/etc/e-smith/db/configuration/defaults/masq/TCPMinimizeDelay	2004-04-30 18:01:25.000000000 -0600
++++ mezzanine_patched_e-smith-packetfilter-1.17.0/root/etc/e-smith/db/configuration/defaults/masq/TCPMinimizeDelay	1969-12-31 17:00:00.000000000 -0700
+@@ -1 +0,0 @@
+-22
