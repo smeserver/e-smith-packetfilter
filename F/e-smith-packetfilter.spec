@@ -2,9 +2,10 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.17.0
-%define release 04
+%define release 5
 Version: %{version}
-Release: %{release}
+Release: %smerelease %{release}
+Packager: %{_packager}
 License: GPL
 Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
@@ -12,7 +13,6 @@ Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-packetfilter-1.17.0-merge.patch
 Patch1: e-smith-packetfilter-1.17.0-OUTERNET.patch
 Patch2: e-smith-packetfilter-1.17.0-TCPMinimizeDelay.patch
-Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-base >= 4.15.0-32
@@ -27,6 +27,10 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Thu Dec 07 2006 Shad L. Lords <slords@mail.com>
+- Update to new release naming.  No functional changes.
+- Make Packager generic
+
 * Fri Nov 23 2006 Gordon Rowell <gordonr@gormand.com.au> 1.17.0-04
 - Remove TCPMinimizeDelay default for ssh [SME: 2083]
 
