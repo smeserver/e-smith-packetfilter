@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.17.0
-%define release 5
+%define release 6
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -13,6 +13,7 @@ Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-packetfilter-1.17.0-merge.patch
 Patch1: e-smith-packetfilter-1.17.0-OUTERNET.patch
 Patch2: e-smith-packetfilter-1.17.0-TCPMinimizeDelay.patch
+Patch3: e-smith-packetfilter-1.17.0-ports.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-base >= 4.15.0-32
@@ -27,6 +28,9 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Wed Jan 17 2007 Shad L. Lords <slords@mail.com> 1.17.0-6
+- Use both {TCP,UDP}Port and {TCP,UDP}Ports for masq template [SME: 56]
+
 * Thu Dec 07 2006 Shad L. Lords <slords@mail.com>
 - Update to new release naming.  No functional changes.
 - Make Packager generic
@@ -779,6 +783,7 @@ e-smith server and gateway software - packetfilter add-on
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 perl createlinks
