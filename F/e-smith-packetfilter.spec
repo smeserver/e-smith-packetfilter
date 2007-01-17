@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.16.0
-%define release 8
+%define release 9
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -16,6 +16,7 @@ Patch2: e-smith-packetfilter-1.16.0-ipmasq.patch
 Patch3: e-smith-packetfilter-1.16.0-DefaultDeny.patch
 Patch4: e-smith-packetfilter-1.16.0-OUTERNET.patch
 Patch5: e-smith-packetfilter-1.17.0-TCPMinimizeDelay.patch
+Patch6: e-smith-packetfilter-1.17.0-ports.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-base >= 4.15.0-32
@@ -30,6 +31,10 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Wed Jan 17 2007 Shad L. Lords <slords@mail.com> 1.16.0-9
+- Back port of 1.17.0-6
+- Use both {TCP,UDP}Port and {TCP,UDP}Ports for masq template [SME: 56]
+
 * Thu Dec 07 2006 Shad L. Lords <slords@mail.com>
 - Update to new release naming.  No functional changes.
 - Make Packager generic
@@ -781,6 +786,7 @@ e-smith server and gateway software - packetfilter add-on
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 perl createlinks

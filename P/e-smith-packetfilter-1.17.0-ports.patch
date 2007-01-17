@@ -1,0 +1,100 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.17.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundTCP10filter_tcp mezzanine_patched_e-smith-packetfilter-1.17.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundTCP10filter_tcp
+--- e-smith-packetfilter-1.17.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundTCP10filter_tcp	2006-08-13 04:33:35.000000000 -0600
++++ mezzanine_patched_e-smith-packetfilter-1.17.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundTCP10filter_tcp	2007-01-17 08:16:04.000000000 -0700
+@@ -1,10 +1,10 @@
+ {
+-    foreach my $filter ( sort {$a->prop('TCPPort') cmp $b->prop('TCPPort')}
+-	$DB->get_all_by_prop( TCPPort => '\d+') )
++    @tcpsvcs = ($DB->get_all_by_prop( TCPPort => '\d+'), $DB->get_all_by_prop( TCPPorts => '\d+(,\d+|:\d+)*'));
++    foreach my $filter ( sort {$a->key cmp $b->key} @tcpsvcs )
+     {
+ 	my %props = $filter->props();
+ 
+-        my $port = $props{TCPPort};
++        my @ports = grep { $_ } split /[;,]/, ($props{TCPPort} || '').",".($props{TCPPorts} || '');
+ 
+ 	my $deny_hosts = $props{DenyHosts} || '';
+ 
+@@ -20,22 +20,25 @@
+ 	    $allow_hosts = '';
+ 	}
+ 
+-	$OUT .= "    # " . $filter->key . ": TCPPort $port, AllowHosts: $allow_hosts, DenyHosts: $deny_hosts\n";
++	$OUT .= "    # " . $filter->key . ": TCPPorts: " . (join ',', @ports) . ", AllowHosts: $allow_hosts, DenyHosts: $deny_hosts\n";
+ 
+-	foreach my $host (split(',', $deny_hosts))
++	foreach my $port (sort { $a <=> $b } @ports)
+ 	{
+-	    $OUT .= <<HERE;
++	    foreach my $host (split(',', $deny_hosts))
++	    {
++		$OUT .= <<HERE;
+     /sbin/iptables -A \$NEW_InboundTCP --proto tcp --dport $port \\
+ 	--destination \$OUTERNET --src $host --jump denylog
+ HERE
+-	}
++	    }
+ 
+-	foreach my $host (split(',', $allow_hosts))
+-	{
+-	    $OUT .= <<HERE;
++	    foreach my $host (split(',', $allow_hosts))
++	    {
++		$OUT .= <<HERE;
+     /sbin/iptables -A \$NEW_InboundTCP --proto tcp --dport $port \\
+ 	--destination \$OUTERNET --src $host --jump ACCEPT
+ HERE
++	    }
+ 	}
+     }
+ }
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.17.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundUDP10filter_udp mezzanine_patched_e-smith-packetfilter-1.17.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundUDP10filter_udp
+--- e-smith-packetfilter-1.17.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundUDP10filter_udp	2006-08-13 04:33:35.000000000 -0600
++++ mezzanine_patched_e-smith-packetfilter-1.17.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundUDP10filter_udp	2007-01-17 08:14:39.000000000 -0700
+@@ -1,10 +1,10 @@
+ {
+-    foreach my $filter ( sort {$a->prop('UDPPort') cmp $b->prop('UDPPort')}
+-	$DB->get_all_by_prop( UDPPort => '\d+') )
++    @udpsvcs = ($DB->get_all_by_prop( UDPPort => '\d+'), $DB->get_all_by_prop( UDPPorts => '\d+(,\d+|:\d+)*'));
++    foreach my $filter ( sort {$a->key cmp $b->key} @udpsvcs )
+     {
+ 	my %props = $filter->props();
+ 
+-        my $port = $props{UDPPort};
++        my @ports = grep { $_ } split /[;,]/, ($props{UDPPort} || '').",".($props{UDPPorts} || '');
+ 
+ 	my $deny_hosts = $props{DenyHosts} || '';
+ 
+@@ -20,22 +20,25 @@
+ 	    $allow_hosts = '';
+ 	}
+ 
+-	$OUT .= "    # " . $filter->key . ": UDPPort $port, AllowHosts: $allow_hosts, DenyHosts: $deny_hosts\n";
++	$OUT .= "    # " . $filter->key . ": UDPPorts: " . (join ',', @ports) . ", AllowHosts: $allow_hosts, DenyHosts: $deny_hosts\n";
+ 
+-	foreach my $host (split(',', $deny_hosts))
++	foreach my $port (sort { $a <=> $b } @ports)
+ 	{
+-	    $OUT .= <<HERE;
++	    foreach my $host (split(',', $deny_hosts))
++	    {
++		$OUT .= <<HERE;
+     /sbin/iptables -A \$NEW_InboundUDP --proto udp --dport $port \\
+ 	--destination \$OUTERNET --src $host --jump denylog
+ HERE
+-	}
++	    }
+ 
+-	foreach my $host (split(',', $allow_hosts))
+-	{
+-	    $OUT .= <<HERE;
++	    foreach my $host (split(',', $allow_hosts))
++	    {
++		$OUT .= <<HERE;
+     /sbin/iptables -A \$NEW_InboundUDP --proto udp --dport $port \\
+ 	--destination \$OUTERNET --src $host --jump ACCEPT
+ HERE
++	    }
+ 	}
+     }
+ }
