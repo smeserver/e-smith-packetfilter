@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.17.0
-%define release 6
+%define release 7
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -14,6 +14,7 @@ Patch0: e-smith-packetfilter-1.17.0-merge.patch
 Patch1: e-smith-packetfilter-1.17.0-OUTERNET.patch
 Patch2: e-smith-packetfilter-1.17.0-TCPMinimizeDelay.patch
 Patch3: e-smith-packetfilter-1.17.0-ports.patch
+Patch4: e-smith-packetfilter-1.17.0-createlinks.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-base >= 4.15.0-32
@@ -784,12 +785,21 @@ e-smith server and gateway software - packetfilter add-on
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 perl createlinks
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
+for file in masq
+do
+    mkdir -p root/etc/e-smith/templates/etc/rc.d/init.d/$file
+    ln -s /etc/e-smith/templates-default/template-begin-shell \
+      root/etc/e-smith/templates/etc/rc.d/init.d/$file/template-begin
+done
+
 (cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 mkdir -p $RPM_BUILD_ROOT/var/log/iptables
 mkdir -p $RPM_BUILD_ROOT/service

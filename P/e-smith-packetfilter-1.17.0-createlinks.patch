@@ -1,0 +1,35 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.17.0/createlinks mezzanine_patched_e-smith-packetfilter-1.17.0/createlinks
+--- e-smith-packetfilter-1.17.0/createlinks	2006-03-15 19:38:35.000000000 -0700
++++ mezzanine_patched_e-smith-packetfilter-1.17.0/createlinks	2007-01-18 20:33:28.000000000 -0700
+@@ -3,3 +3,31 @@
+ use esmith::Build::CreateLinks qw(:all);
+ 
+ templates2events("/etc/ulogd.conf", qw(post-install post-upgrade));
++
++# conf-masq
++
++templates2events("/etc/rc.d/init.d/masq", qw(
++	console-save
++	bootstrap-console-save
++	network-create
++	network-delete
++	remoteaccess-update
++	email-update
++	));
++
++foreach (qw(console-save ip-change network-create network-delete remoteaccess-update))
++{
++    safe_symlink("adjust", "root/etc/e-smith/events/$_/services2adjust/masq");
++}
++
++my %service2order =
++(
++    # Set up the packet filter rules before bringing up networks.
++    # But, after the bootstrap-console has had a chance to configure masq
++    masq 	=> "36",
++);
++
++foreach my $service (keys %service2order)
++{
++    service_link_enhanced($service, $service2order{$service}, 7);
++}
