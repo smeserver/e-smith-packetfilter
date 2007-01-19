@@ -29,6 +29,9 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Thu Jan 18 2007 Shad L. Lords <slords@mail.com> 1.17.0-7
+- Move last masq fragments from e-smith-base.
+
 * Wed Jan 17 2007 Shad L. Lords <slords@mail.com> 1.17.0-6
 - Use both {TCP,UDP}Port and {TCP,UDP}Ports for masq template [SME: 56]
 
