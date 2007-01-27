@@ -1,8 +1,8 @@
 Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
-%define version 1.17.0
-%define release 7
+%define version 1.18.0
+%define release 1
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -10,14 +10,9 @@ License: GPL
 Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
-Patch0: e-smith-packetfilter-1.17.0-merge.patch
-Patch1: e-smith-packetfilter-1.17.0-OUTERNET.patch
-Patch2: e-smith-packetfilter-1.17.0-TCPMinimizeDelay.patch
-Patch3: e-smith-packetfilter-1.17.0-ports.patch
-Patch4: e-smith-packetfilter-1.17.0-createlinks.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
-Requires: e-smith-base >= 4.15.0-32
+Requires: e-smith-base >= 4.18.0
 Requires: ulogd
 Requires: daemontools
 Requires: iptables
@@ -29,6 +24,9 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Fri Jan 26 2007 Shad L. Lords <slords@mail.com> 1.18.0-1
+- Roll stable stream. [SME: 2328]
+
 * Thu Jan 18 2007 Shad L. Lords <slords@mail.com> 1.17.0-7
 - Move last masq fragments from e-smith-base.
 
@@ -784,11 +782,6 @@ e-smith server and gateway software - packetfilter add-on
 
 %prep
 %setup
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
 
 %build
 perl createlinks
