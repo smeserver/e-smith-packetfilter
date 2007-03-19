@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.18.0
-%define release 2
+%define release 3
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -11,10 +11,11 @@ Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch1: e-smith-packetfilter-1.18.0-sorting.patch
+Patch2: e-smith-packetfilter-1.18.0-newulog.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-base >= 4.18.0
-Requires: ulogd
+Requires: ulogd >= 1.24
 Requires: daemontools
 Requires: iptables
 BuildRequires: e-smith-devtools
@@ -25,6 +26,9 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Mon Mar 19 2007 Shad L. Lords <slords@mail.com> 1.18.0-3
+- Update ulogd.conf to new format [SME: 2744]
+
 * Fri Feb 09 2007 Shad L. Lords <slords@mail.com> 1.18.0-2
 - Fix sorting for Ports properties [SME: 56]
 
@@ -787,6 +791,7 @@ e-smith server and gateway software - packetfilter add-on
 %prep
 %setup
 %patch1 -p1
+%patch2 -p1
 
 %build
 perl createlinks
