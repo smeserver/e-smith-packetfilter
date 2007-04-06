@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.18.0
-%define release 3
+%define release 4
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -12,6 +12,7 @@ Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch1: e-smith-packetfilter-1.18.0-sorting.patch
 Patch2: e-smith-packetfilter-1.18.0-newulog.patch
+Patch3: e-smith-packetfilter-1.18.0-ulogd.conf_perms.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-base >= 4.18.0
@@ -26,6 +27,9 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Fri Apr 06 2007 Shad L. Lords <slords@mail.com> 1.18.0-4
+- Fix perms for ulogd.conf file [SME: 2722]
+
 * Mon Mar 19 2007 Shad L. Lords <slords@mail.com> 1.18.0-3
 - Update ulogd.conf to new format [SME: 2744]
 
@@ -792,6 +796,7 @@ e-smith server and gateway software - packetfilter add-on
 %setup
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 perl createlinks
