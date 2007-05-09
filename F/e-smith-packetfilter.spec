@@ -4,10 +4,8 @@ Name: %{name}
 %define version 1.16.0
 %define release 9
 Version: %{version}
-Release: %smerelease %{release}
-Packager: %{_packager}
+Release: %{release}%{?dist}
 License: GPL
-Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-packetfilter-1.16.0-modifyRejectIDENT.patch
@@ -31,6 +29,9 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Sun Apr 29 2007 Shad L. Lords <slords@mail.com>
+- Clean up spec so package can be built by koji/plague
+
 * Wed Jan 17 2007 Shad L. Lords <slords@mail.com> 1.16.0-9
 - Back port of 1.17.0-6
 - Use both {TCP,UDP}Port and {TCP,UDP}Ports for masq template [SME: 56]
