@@ -2,7 +2,7 @@ Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
 %define version 1.18.0
-%define release 5
+%define release 6
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -12,6 +12,7 @@ Patch1: e-smith-packetfilter-1.18.0-sorting.patch
 Patch2: e-smith-packetfilter-1.18.0-newulog.patch
 Patch3: e-smith-packetfilter-1.18.0-ulogd.conf_perms.patch
 Patch4: e-smith-packetfilter-1.18.0-UDPPort.patch
+Patch5: e-smith-packetfilter-1.18.0-lib64.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-base >= 4.18.0
@@ -26,6 +27,9 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Fri May 18 2007 Shad L. Lords <slords@mail.com> 1.18.0-6
+- Use correct lib for modules
+
 * Sun Apr 29 2007 Shad L. Lords <slords@mail.com>
 - Clean up spec so package can be built by koji/plague
 
@@ -803,6 +807,7 @@ e-smith server and gateway software - packetfilter add-on
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 perl createlinks
