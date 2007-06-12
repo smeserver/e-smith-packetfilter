@@ -1,0 +1,24 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.18.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundTCP10filter_tcp mezzanine_patched_e-smith-packetfilter-1.18.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundTCP10filter_tcp
+--- e-smith-packetfilter-1.18.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundTCP10filter_tcp	2007-01-26 18:51:31.000000000 -0700
++++ mezzanine_patched_e-smith-packetfilter-1.18.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundTCP10filter_tcp	2007-02-09 07:41:46.000000000 -0700
+@@ -22,7 +22,7 @@
+ 
+ 	$OUT .= "    # " . $filter->key . ": TCPPorts: " . (join ',', @ports) . ", AllowHosts: $allow_hosts, DenyHosts: $deny_hosts\n";
+ 
+-	foreach my $port (sort { $a <=> $b } @ports)
++	foreach my $port (sort { @a = split /[^\d]/, $a; @b = split /[^\d]/, $b; $a[0] <=> $b[0] || $a cmp $b } @ports)
+ 	{
+ 	    foreach my $host (split(',', $deny_hosts))
+ 	    {
+diff -Nur -x '*.orig' -x '*.rej' e-smith-packetfilter-1.18.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundUDP10filter_udp mezzanine_patched_e-smith-packetfilter-1.18.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundUDP10filter_udp
+--- e-smith-packetfilter-1.18.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundUDP10filter_udp	2007-01-26 18:51:31.000000000 -0700
++++ mezzanine_patched_e-smith-packetfilter-1.18.0/root/etc/e-smith/templates/etc/rc.d/init.d/masq/90InboundUDP10filter_udp	2007-02-09 07:41:58.000000000 -0700
+@@ -22,7 +22,7 @@
+ 
+ 	$OUT .= "    # " . $filter->key . ": UDPPorts: " . (join ',', @ports) . ", AllowHosts: $allow_hosts, DenyHosts: $deny_hosts\n";
+ 
+-	foreach my $port (sort { $a <=> $b } @ports)
++	foreach my $port (sort { @a = split /[^\d]/, $a; @b = split /[^\d]/, $b; $a[0] <=> $b[0] || $a cmp $b } @ports)
+ 	{
+ 	    foreach my $host (split(',', $deny_hosts))
+ 	    {
