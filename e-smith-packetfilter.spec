@@ -1,18 +1,15 @@
+# $Id: e-smith-packetfilter.spec,v 1.2 2008/10/07 18:50:26 slords Exp $
+
 Summary: e-smith server and gateway - packetfilter add-on
 %define name e-smith-packetfilter
 Name: %{name}
-%define version 1.18.0
-%define release 6
+%define version 2.2.0
+%define release 1
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
-Patch1: e-smith-packetfilter-1.18.0-sorting.patch
-Patch2: e-smith-packetfilter-1.18.0-newulog.patch
-Patch3: e-smith-packetfilter-1.18.0-ulogd.conf_perms.patch
-Patch4: e-smith-packetfilter-1.18.0-UDPPort.patch
-Patch5: e-smith-packetfilter-1.18.0-lib64.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 BuildArchitectures: noarch
 Requires: e-smith-base >= 4.18.0
@@ -27,6 +24,9 @@ AutoReqProv: no
 e-smith server and gateway software - packetfilter add-on
 
 %changelog
+* Tue Oct 7 2008 Shad L. Lords <slords@mail.com> 2.2.0-1.sme
+- Roll new stream to separate sme7/sme8 trees [SME: 4633]
+
 * Fri May 18 2007 Shad L. Lords <slords@mail.com> 1.18.0-6
 - Use correct lib for modules
 
@@ -803,11 +803,6 @@ e-smith server and gateway software - packetfilter add-on
 
 %prep
 %setup
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
 
 %build
 perl createlinks
